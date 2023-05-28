@@ -1,0 +1,107 @@
+/* animation-duration, animation-timing-function, animation-delay, animation-iteration-count, animation-name */
+
+body{
+    display: none;
+    font-family: 'Quicksand', sans-serif;
+    background-image: url("images/sky.jpg");
+    text-align: center;
+    margin: 3% 10%;
+    margin-bottom: 75px;
+}
+
+#header{
+    background-color: #A393BF;
+    font-size: 2.5em;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+#header p{
+    margin: 0;
+    padding: 1% 0 1% 0;
+}
+
+nav{
+    margin: 10px 0;
+}
+
+nav:hover{
+    opacity: 0.75;
+}
+
+nav{
+    background-color: #9882AC;
+    padding: 1% 0 1% 0;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+nav a{
+    text-decoration: none;
+    color: white;
+}
+
+#help_menu{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    box-shadow: 0px 0px 5px #888888;
+    padding: 10px;
+}
+
+#image{
+    padding-bottom: 20px;
+}
+#image img{
+    box-shadow: 0px 0px 5px #888888;
+    width: 500px;
+}
+
+.menuItem{
+    font-size: 1.1em;
+    padding: 10px;
+    margin: auto 2px;
+}
+
+.menuItem:hover{
+    opacity: 0.5;
+}
+
+.menuItem:nth-of-type(1){
+    background-color: lightcoral;
+}
+
+.menuItem:nth-of-type(2){
+    background-color: lightsalmon;
+}
+
+.menuItem:nth-of-type(3){
+    background-color: lightgoldenrodyellow;
+}
+
+.menuItem:nth-of-type(4){
+    background-color: lightseagreen;
+}
+
+.menuItem:nth-of-type(5){
+    background-color: lightskyblue;
+}
+
+footer p{
+    font-size: 1.2em;
+    margin: 15px 0;
+    color: white;
+}
+
+footer{
+    display: block;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: #9882AC;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+@media only screen and (min-width: 900px) {
+  body {
+    margin: 20px 300px;
+  }
+}

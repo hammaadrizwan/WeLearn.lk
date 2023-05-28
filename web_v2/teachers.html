@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Teachers</title>
+        <link href="style_teachers.css" type="text/css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                var teacherImages = ["images/teachers/agatha.jpg", "images/teachers/andrew.jpg", "images/teachers/anne.jpg", "images/teachers/brian.jpg", "images/teachers/carl.jpg", "images/teachers/edward.jpg", "images/teachers/emily.jpg", "images/teachers/rahul.jpg", "images/teachers/stewart.jpg"];
+                var teacherNames = ["Ms. Agatha Silvy", "Mr. Andrew James", "Ms. Anne Mary", "Mr. Brian Cary", "Mr. Carl Gauss", "Mr. Edward Witinton", "Ms. Emily Cathode", "Mr. Rahul Shetti", "Mr. Stewart Aadam"];
+                var teacherHeadings = ["Edexcel IGCSE & iAL Teacher", "Local & Cambridge Syllabus Teacher", "Local, Edexcel & Cambridge Syllabus"]
+                var teacherDescriptions = ["+5 Years Teaching in International Schools\n\nSmall online class size, with individual attention", "+10 Years Teaching in Local & Int. Schools\n\nVideo demonstrations & simulations included", "A* & A students guaranteed!\n\nPracticals & Simulations included", "+6 Years Examination Officer\n\nExam Tips and Effective Revision Tips"]
+                var teacherCharges = ["Rs. 2000 per class", "Rs. 3000 per class", "Rs. 1500 per class", "Rs. 1000 per class"]
+                var randomTimes = ["8:00 pm to 9:00 am", "9:00 am to 10:00 am", "11:00 am to 12:00 noon", "12:00 noon to 1:00 pm", "4:00 pm to 5:00 pm", "5:00 pm to 6:00 pm", "6:00 pm to 7:00 PM"]
+                var indexList = [0, 2, 4, 5, 1, 8, 3, 6, 7, 1, 5, 2, 6, 0, 7, 8, 3, 4];
+                var localIndices = [];
+                var blockLength = 3;
+                var groupedIndices = [];
+                var groupedIDs = [];
+                var focus_index = 0;
+                var teacherIDs = [];
+
+                // Setting all teacher images & names
+                $(".charges").each(function(a){
+                    $(this).text(teacherCharges[a%teacherCharges.length]);
+                });
+
+                $(".description").each(function(a){
+                    $(this).text(teacherDescriptions[a%teacherDescriptions.length]);
+                });
+
+                $(".timingBlock").each(function(a){
+                    $(this).text(randomTimes[a%randomTimes.length]);
+                });
+
+                $(".teacherHeading").each(function(a){
+                    $(this).text(teacherHeadings[a%teacherHeadings.length]);
+                });
+
+                $("img").each(function(a){
+                    var image = teacherImages[indexList[a]];
+                    $(this).attr("src", image);
+                })
+
+                $(".name").each(function(b){
+                    $(this).text(teacherNames[indexList[b]]);
+                });
+
+                // Grouping image
+                $(".subjectMain .teacherInfo .teacher").each(function(i){
+                    localIndices.push(0);
+                });
+
+                for (var x = 0, y = indexList.length; x < y; x += blockLength) {
+                    var group = indexList.slice(x, x + blockLength);
+                    groupedIndices.push(group)
+                }
+
+                console.log(groupedIndices);
+
+                $(".teacher").each(function(c){
+                    var id_text = "teacherInfo"+String(c);
+                    $(this).attr("id", id_text);
+                    teacherIDs.push(c);
+                });
+
+                for (var x = 0, y = teacherIDs.length; x < y; x += blockLength) {
+                    var group = teacherIDs.slice(x, x + blockLength);
+                    groupedIDs.push(group)
+                }
+
+                console.log(groupedIDs);
+
+                $(".backButton").each(function(d){
+                    var id_text = "button"+String(d);
+                    $(this).attr("id", id_text)
+                });
+
+                $(".nextButton").each(function(d){
+                    var id_text = "button"+String(d);
+                    $(this).attr("id", id_text)
+                });
+
+
+                for (var i=0; i < groupedIDs.length; i++){
+                    $("#teacherInfo"+String(groupedIDs[i][0])).css("display", "inherit")
+                    $("#teacherInfo"+String(groupedIDs[i][1])).css("display", "none")
+                    $("#teacherInfo"+String(groupedIDs[i][2])).css("display", "none")
+                }
+
+                $(".backButton").click(function(){
+                    var index = parseInt(this.id[this.id.length-1]);
+                    var maxID = groupedIDs[index][groupedIDs[index].length-1];
+                    var minID = groupedIDs[index][0];
+
+                    console.log(index);
+
+                    localIndices[index] = localIndices[index] - 1;
+
+                    if (localIndices[index] > maxID){
+                        localIndices[index] = minID;
+                    } else if (localIndices[index] < minID){
+                        localIndices[index] = maxID;
+                    }
+
+                    for (var i=minID; i < maxID+1; i++){
+                        if (i != localIndices[index]){
+                            $("#teacherInfo"+String(i)).css("display", "none")
+                        } else{
+                            $("#teacherInfo"+String(i)).fadeIn(500);
+                        }
+                    }
+                });
+
+                $(".nextButton").click(function(){
+                    var index = parseInt(this.id[this.id.length-1]);
+                    var maxID = groupedIDs[index][groupedIDs[index].length-1];
+                    var minID = groupedIDs[index][0];
+
+                    console.log(index);
+
+                    localIndices[index] = localIndices[index] + 1;
+
+                    if (localIndices[index] > maxID){
+                        localIndices[index] = minID;
+                    } else if (localIndices[index] < minID){
+                        localIndices[index] = maxID;
+                    }
+
+                    for (var i=minID; i < maxID+1; i++){
+                        if (i != localIndices[index]){
+                            $("#teacherInfo"+String(i)).css("display", "none")
+                        } else{
+                            $("#teacherInfo"+String(i)).fadeIn(500);
+                        }
+                    }
+                });
+
+                $("body").fadeIn(1000);
+                $(".teacherInfo").css("display", "none");
+
+                $(".heading").click(function(targetObject){
+                    $(this).parent().find(".teacherInfo").slideToggle(500).css("display","grid");
+                });
+
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="header">
+            <p>Select Your Teacher</p>
+        </div>
+
+        <nav>
+            <a href=index.html>Return to Homepage</a>
+        </nav>
+        
+        <div id="subjectTitle">
+            Select your subject 👇
+        </div>
+
+        <div id="teachersDisplay">
+            <div class="subjectMain">
+                <p class="heading">Chemistry</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subjectMain">
+                <p class="heading">Physics</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subjectMain">
+                <p class="heading">Biology</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subjectMain">
+                <p class="heading">Computer Science</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subjectMain">
+                <p class="heading">Mathematics</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="subjectMain">
+                <p class="heading">English Language</p>
+                <div class="teacherInfo">
+                    <div class="backButton">
+                        <p>⮜</p>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="teacher">
+                        <p class="name">Teacher 1</p>
+
+                        <div class="teacherImage">
+                            <img src="images/teacherAvatar.png"/>
+                        </div>
+
+                        <div class="teacherData">
+                            <p class="teacherHeading">
+                                Edexcel IGCSE & iAL Chemistry Teacher
+                            </p>
+
+                            <p class="description">
+                                12 Years Teaching Experience in International Schools
+                            </p>
+
+                            <p id="timingHeading">Class Timings</p>
+                            <div class="timings">
+                                <p class="timingBlock">Day Time One</p>
+                                <p class="timingBlock">Day Time Two</p>
+                                <p class="timingBlock">Day Time Three</p>
+                            </div>
+
+                            <p id="chargesHeading">Class Charges</p>
+                            <p class="charges">
+                                Rs. 5000 per class
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="nextButton">
+                        <p>⮞</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>Learn.lk &copy; 2020</p>
+        </footer>
+    </body>
+</html>

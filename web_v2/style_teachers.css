@@ -1,0 +1,164 @@
+/* animation-duration, animation-timing-function, animation-delay, animation-iteration-count, animation-name */
+
+body{
+    display: none;
+    font-family: 'Quicksand', sans-serif;
+    background: url("images/sky.jpg") no-repeat center center fixed;
+    text-align: center;
+    margin: 20px 75px;
+    margin-bottom: 75px;
+}
+
+#header{
+    background-color: #A393BF;
+    font-size: 2.5em;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+#header p{
+    margin: 0;
+    padding: 1% 0 1% 0;
+}
+
+nav{
+    margin: 10px 0;
+    background-color: #9882AC;
+    padding: 1% 0 1% 0;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+nav a{
+    text-decoration: none;
+    color: white;
+}
+
+nav:hover{
+    opacity: 0.75;
+}
+
+.subjectInfo{
+    display: grid;
+}
+
+.teacherInfo{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 0px 10px 10px 10px;
+    margin: 0px 10px 10px 10px;
+}
+
+.name{
+    font-size: 1.2em;
+}
+
+.teacher{
+    margin: 0px 20px;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+.teacherData{
+    margin: 10px;
+}
+
+#timingHeading, #chargesHeading{
+    font-size: 1.2em;
+    padding: 5px 0;
+    margin: 5px;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+.timings{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.timingBlock{
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+.teacherHeading{
+    margin: 5px;
+    box-shadow: 0px 0px 5px #888888;
+    padding: 10px 0;
+}
+
+.description{
+    white-space: pre-wrap;
+    margin: 5px;
+    box-shadow: 0px 0px 5px #888888;
+    padding: 10px 0;
+}
+
+.charges{
+    margin: 5px;
+    box-shadow: 0px 0px 5px #888888;
+    padding: 10px 0;
+}
+
+.teacherImage img{
+    border: 2px solid #888888;
+    border-radius: 25px;
+}
+
+.backButton, .nextButton{
+    color: lightslategrey;
+    font-size: 3em;
+    margin: auto 0px;
+}
+
+.backButton:hover, .nextButton:hover{
+    opacity: 0.5;
+}
+
+.heading{
+    margin: 10px 0px 0px 0px;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.heading:hover{
+    background-color: #A393BF;
+    color: white;
+}
+
+.heading:last-of-type{
+    margin-bottom: 10px;
+}
+
+.heading, .teacher{
+    box-shadow: 0px 0px 10px #888888;
+}
+
+img{
+    height: 175px;
+}
+
+footer p{
+    font-size: 1.2em;
+    margin: 15px 0;
+    color: white;
+}
+
+footer{
+    display: block;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: #9882AC;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+#subjectTitle{
+    font-size: 1.3em;
+    box-shadow: 0px 0px 5px #888888;
+    padding: 15px;
+}
+
+@media only screen and (min-width: 900px) {
+  body {
+    margin: 20px 300px;
+  }
+}

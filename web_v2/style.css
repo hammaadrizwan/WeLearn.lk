@@ -1,0 +1,114 @@
+:root{
+    --degreePos: 0deg;
+    --degreeNeg: 0deg;
+    --delay: 0s;
+}
+
+body{
+    font-family: 'Quicksand', sans-serif;
+    background-image: url("images/sky.jpg");
+    margin: 0px 0px 0px 0px;
+}
+
+.menu_item{
+    box-shadow: 0px 5px 5px #888888;
+    opacity: 0.75;  
+    height: 125px;
+    width: 125px;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    top: 25%;
+    border-radius: 50%;
+    margin: 100px auto 100px auto;
+    background-color: gray;
+}
+
+.menu_item img{
+    text-align: center;
+    position: absolute;
+    word-wrap: normal;
+    width: 80px;
+    left: 18%;
+    top: 18%;
+}
+
+.menu_item p{
+    display: none;
+    text-align: center;
+    margin: 110% 0;
+    z-index: -5;
+    font-size: 1.1em;
+    white-space: nowrap;
+}
+
+#center{
+    opacity: 1.0;
+    background-image: url("images/sky.jpg");
+    background-image: repeat;
+    height: 200px;
+    width: 200px;
+    z-index: 1;
+}
+
+#center{
+    animation: 1s ease-in-out 0s infinite glow;
+    animation-direction: alternate;
+}
+
+#center p{
+    text-align: center;
+    display: block;
+    margin: 37% 0 0 0;
+    font-size: 2.5em;
+}
+
+@keyframes glow{
+    from{
+        transform: translateY(-37.5px);
+        box-shadow: 0px 0px 30px 0px navy;
+    }
+    to{
+        transform: translateY(-37.5px);
+        box-shadow: 0px 0px 30px 20px #A393BF;
+    }
+}
+
+@keyframes startup{
+    to{
+        transform: rotate(var(--degreePos)) translateY(-250px) rotate(var(--degreeNeg))
+    }
+}
+
+.menu_item:not(#center){
+    animation: 1.5s ease-out var(--delay) 1 startup;
+    animation-fill-mode: forwards;
+}
+
+.menu_item:nth-child(2){
+    background-color: #A393BF;
+    --degreePos: 45deg;
+    --degreeNeg: -45deg;
+    --delay: 0.1s;
+}
+
+.menu_item:nth-child(3){
+    background-color: #9882AC;
+    --degreePos: 135deg;
+    --degreeNeg: -135deg;
+    --delay: 0.2s;
+}
+
+.menu_item:nth-child(4){
+    background-color: #73648A;
+    --degreePos: 225deg;
+    --degreeNeg: -225deg;
+    --delay: 0.3s;
+}
+
+.menu_item:nth-child(5){
+    background-color: #453750;
+    --degreePos: 315deg;
+    --degreeNeg: -315deg;
+    --delay: 0.4s;
+}

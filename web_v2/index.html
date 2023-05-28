@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Learn.lk</title>
+        <link href="style.css" type="text/css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(".menu_item:not(#center)").hover(function(){
+                   $(this).find("p").fadeToggle(500);
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="radial_menu">
+            <div id="center" class="menu_item">
+                <p>Learn.lk</p>
+            </div>
+
+            <div class="menu_item">
+                <a href="teachers.html"><img src="images/teacher.png"/></a>
+                <p class="text">Select Teacher</p>
+            </div>
+
+            <div class="menu_item">
+                <a href="about.html"><img src="images/info.png"/></a>
+                <p>About Us</p>
+            </div>
+
+            <div class="menu_item">
+                <a href="gaming.html"><img src="images/games.png"/></a>
+                <p>Gaming Portal</p>
+            </div>
+
+            <div class="menu_item">
+                <a href="index.html"><img src="images/pc_icon.png"/></a>
+                <p>Desktop App</p>
+            </div>
+        </div>
+    </body>
+</html>
